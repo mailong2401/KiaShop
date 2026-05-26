@@ -18,9 +18,13 @@ app.use(express.json());
 app.use(cors());
 
 // Kết nối MongoDB
-mongoose.connect(
-  "mongodb+srv://gtmailong:123@cluster0.xemogvx.mongodb.net/ShopThoiTrang?retryWrites=true&w=majority",
-);
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Kiểm tra API chính
 app.get("/", (req, res) => {
